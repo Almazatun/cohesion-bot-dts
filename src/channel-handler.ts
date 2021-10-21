@@ -4,6 +4,8 @@ import { REPLY_WORD } from './constants/reply-word.regional-indicators';
 import { onropChannel } from './channel/onrop.channel';
 import { isIncludeCommandSymbol } from './utils/check-command-symbol';
 import { getCommand } from './utils/get-command';
+import { WORDS } from './commands/wrd.command';
+import { isValidCommandKey } from './utils/is-valid-command-key';
 import { onropCommandHandler } from './channel-command-handler/onrop.command-handler';
 
 export async function channelHandler(message: Message) {
@@ -12,10 +14,13 @@ export async function channelHandler(message: Message) {
 
   if (onropChannel.channel_id === channelId) {
     if (isIncludeCommandSymbol(userMessage)) {
-      const command = getCommand(userMessage);
-      if (onropChannel.aliases.includes(command)) {
-        const key: string = getCommand(userMessage, 1);
-        message.channel.send(onropCommandHandler[command][key]);
+      const userTypeCommand = getCommand(userMessage);
+      const userTypeCommandKey: string = getCommand(userMessage, 1).trim();
+      if (onropChannel.aliases.includes(userTypeCommand)) {
+        const commandKeysList = { ...WORDS };
+        if (isValidCommandKey(commandKeysList, userTypeCommandKey)) {
+          message.channel.send(onropCommandHandler[userTypeCommand][userTypeCommandKey]);
+        }
       }
     }
   }
