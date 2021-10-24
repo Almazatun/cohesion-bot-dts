@@ -3,9 +3,8 @@ import { Message } from 'discord.js';
 import { onropChannel } from './channel/onrop.channel';
 import { isIncludeCommandSymbol } from './utils/check-command-symbol';
 import { getCommand } from './utils/get-command';
-import { isValidCommandKey } from './utils/is-valid-command-key';
-import { onropCommandHandler } from './channel-command-handler/onrop.command-handler';
 import { REACTS } from './commands/react.command';
+import { wrdCommand } from './commands/wrd.command';
 
 export async function messageHandler(message: Message) {
   const userMessage = message.content;
@@ -17,12 +16,8 @@ export async function messageHandler(message: Message) {
   if (isIncludeCommandSymbol(userMessage)) {
     if (onropChannel.channel_id === channelId) {
       if (onropChannel.aliases.includes(userTypeCommand)) {
-        const commandKeysList = { ...onropCommandHandler.wrd };
-
-        if (isValidCommandKey(commandKeysList, userTypeCommandKey)) {
-          // @ts-ignore
-          message.channel.send(onropCommandHandler[userTypeCommand][userTypeCommandKey]);
-        }
+        const discordCodeLetters: string = wrdCommand(userTypeCommandKey);
+        message.channel.send(discordCodeLetters);
       }
     }
 

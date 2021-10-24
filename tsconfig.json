@@ -14,7 +14,9 @@
     "skipLibCheck": true,
     "strictNullChecks": false,
     "forceConsistentCasingInFileNames": false,
-    "strict": true
+    "strict": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true
   },
   "include": [
     "src/**/*.ts"
