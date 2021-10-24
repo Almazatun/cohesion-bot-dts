@@ -1,26 +1,50 @@
 import { Message } from 'discord.js';
 
-export interface Reacts {
+export interface ReactCommand {
   _name: string
   react1: (message: Message) => Promise<void>
   react2: (message: Message) => Promise<void>
+  react3: (message: Message) => Promise<void>
 }
 
-export const REACTS: Reacts = {
+function react1() {
+  return {
+    react1: async (message: Message) => {
+      await Promise.all([
+        message.react('👍'),
+        message.react('👎'),
+      ]);
+    },
+  };
+}
+
+function react2() {
+  return {
+    react2: async (message: Message) => {
+      await Promise.all([
+        message.react('🍎'),
+        message.react('🍊'),
+        message.react('🍇'),
+      ]);
+    },
+  };
+}
+
+function react3() {
+  return {
+    react3: async (message: Message) => {
+      await Promise.all([
+        message.react('🟢'),
+        message.react('🟡'),
+        message.react('🔴'),
+      ]);
+    },
+  };
+}
+
+const methods = { ...react1(), ...react2(), ...react3() };
+
+export const reactCommand: ReactCommand = {
   _name: 'react',
-  react1: async (message: Message) => {
-    await Promise.all([
-      message.react('👍'),
-      message.react('👎'),
-    ])
-      .catch(error => console.error('One of the emojis failed to react:', error));
-  },
-  react2: async (message: Message) => {
-    Promise.all([
-      message.react('🍎'),
-      message.react('🍊'),
-      message.react('🍇'),
-    ])
-      .catch(error => console.error('One of the emojis failed to react:', error));
-  },
+  ...methods,
 };

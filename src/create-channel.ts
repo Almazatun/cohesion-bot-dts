@@ -1,6 +1,11 @@
-export function createChannel(channelId: string, aliases: string[]) {
+interface Channel {
+  channelId: string
+  aliases: string[]
+}
+
+export function createChannel(channelId: string, aliases: string[]): Channel {
   return {
-    channel_id: channelId,
+    channelId,
     aliases,
   };
 }
