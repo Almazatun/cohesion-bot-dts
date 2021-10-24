@@ -1,7 +1,17 @@
-import { WORDS } from '../commands/wrd.command';
+import { Words, WORDS } from '../commands/wrd.command';
 
-export const onropCommandHandler: {[key: string]: typeof WORDS} = {
+type WrdCommands = Pick<Words, 'cohesion' | 'django' | 'fortyFive'>
+
+interface OnropCommandHandler {
+  wrd: WrdCommands
+}
+
+const { cohesion, fortyFive, django } = WORDS;
+
+export const onropCommandHandler : OnropCommandHandler = {
   wrd: {
-    ...WORDS,
+    cohesion,
+    fortyFive,
+    django,
   },
 };

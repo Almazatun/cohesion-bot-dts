@@ -1,10 +1,10 @@
-export function isValidCommandKey(
-  allCommandsKeysList: {[key: string]: string},
+export function isValidCommandKey<T>(
+  allCommandsKeysList: {[key: string]: string | T},
   userTypeCommandKey: string,
-) {
-  const result = Object.entries(allCommandsKeysList).map(
-    ([key]) => key,
-  ).includes(userTypeCommandKey);
+): boolean {
+  const result = Object.entries(allCommandsKeysList)
+    .map(([key]) => key)
+    .includes(userTypeCommandKey);
 
   return result;
 }
