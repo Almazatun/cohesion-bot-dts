@@ -55,7 +55,7 @@ rest.put(Routes.applicationGuildCommands(process.env.CLIENT_ID, process.env.GUIL
 
 client.on('ready', readyDiscordBot);
 
-client.on('message', messageHandler);
+client.on('messageCreate', messageHandler);
 
 client.on('interactionCreate', async (interaction) => {
   if (!interaction.isCommand()) return;

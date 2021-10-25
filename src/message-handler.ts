@@ -31,7 +31,7 @@ export async function messageHandler(message: Message) {
     }
 
     if (userTypeCommand === 'react3') {
-      await reactCommand.react2(message);
+      await reactCommand.react3(message);
     }
   }
 }
