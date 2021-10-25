@@ -23,7 +23,6 @@ const client: Client = new Client({
 });
 
 const commands = [
-  new SlashCommandBuilder().setName('ping').setDescription('Replies with pong!'),
   new SlashCommandBuilder()
     .setName('info')
     .setDescription('Get info about a user or a server!')
