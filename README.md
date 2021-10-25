@@ -53,4 +53,4 @@ Slash commands in server
 
 <img src="./assets/wrd_cohesion.jpg">
 
-`>react [1, 2, 3]`
+`>react [1, 2, 3]` 
