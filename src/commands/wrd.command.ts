@@ -1,11 +1,11 @@
 import * as lettersJSON from '../constants/letters.json';
 import * as numbersJSON from '../constants/numbres.json';
 
-interface JSON {
+interface Json {
   [key: string]: string
 }
 
-const lettersAndNumbers: JSON = { ...lettersJSON, ...numbersJSON };
+const lettersAndNumbers: Json = { ...lettersJSON, ...numbersJSON };
 
 export function wrdCommand(userTypeSymbols: string): string {
   const result: string[] = [];

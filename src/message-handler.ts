@@ -5,8 +5,9 @@ import { reactCommand } from './commands/react.command';
 import { isIncludeCommandSymbol } from './utils/check-command-symbol';
 import { getCommand } from './utils/get-command';
 import { wrdCommand } from './commands/wrd.command';
+import { searchGif } from './search-gif';
 
-export async function messageHandler(message: Message) {
+export async function messageHandler(message: Message): Promise<void> {
   const userMessage = message.content;
   const channelId = message.channel.id;
 
@@ -19,6 +20,18 @@ export async function messageHandler(message: Message) {
       if (isIncludeCommandInChannel) {
         const discordCodeLetters: string = wrdCommand(userTypeCommandKey);
         message.channel.send(discordCodeLetters);
+      }
+    }
+
+    if (userTypeCommand === 'gif') {
+      const title: string = userMessage.slice(5, userMessage.length - 1);
+      const cyrillicPattern = /[а-яА-ЯЁё]/;
+      const isContainRussLetters = cyrillicPattern.test(title);
+      if (!isContainRussLetters) {
+        const url = await searchGif(title);
+        if (url !== undefined) {
+          message.channel.send(url);
+        }
       }
     }
 

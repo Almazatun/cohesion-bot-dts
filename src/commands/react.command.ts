@@ -9,7 +9,7 @@ export interface ReactCommand {
 
 function react1() {
   return {
-    react1: async (message: Message) => {
+    react1: async (message: Message): Promise<void> => {
       await Promise.all([
         message.react('👍'),
         message.react('👎'),
@@ -20,7 +20,7 @@ function react1() {
 
 function react2() {
   return {
-    react2: async (message: Message) => {
+    react2: async (message: Message): Promise<void> => {
       await Promise.all([
         message.react('🍎'),
         message.react('🍊'),
@@ -32,7 +32,7 @@ function react2() {
 
 function react3() {
   return {
-    react3: async (message: Message) => {
+    react3: async (message: Message): Promise<void> => {
       await Promise.all([
         message.react('🟢'),
         message.react('🟡'),
