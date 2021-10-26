@@ -1,21 +1,22 @@
 import * as lettersJSON from '../constants/letters.json';
+import * as numbersJSON from '../constants/numbres.json';
 
 interface JSON {
   [key: string]: string
 }
 
-const letters: JSON = lettersJSON;
+const lettersAndNumbers: JSON = { ...lettersJSON, ...numbersJSON };
 
-export function wrdCommand(userWord: string): string {
+export function wrdCommand(userTypeSymbols: string): string {
   const result: string[] = [];
-  const letterList = userWord.trim().toLowerCase().split('');
-  const letterKeyList = Object.keys(lettersJSON);
+  const userTypeSymbolList = userTypeSymbols.trim().toLowerCase().split('');
+  const keyList = Object.keys({ ...lettersJSON, ...numbersJSON });
 
-  for (const letter of letterList) {
-    const isExistLetter = letterKeyList.includes(letter);
+  for (const userTypeSymbol of userTypeSymbolList) {
+    const isExistSymbol = keyList.includes(userTypeSymbol);
 
-    if (isExistLetter) {
-      result.push(letters[letter]);
+    if (isExistSymbol) {
+      result.push(lettersAndNumbers[userTypeSymbol]);
     } else {
       result.push(' ❌ ');
     }
