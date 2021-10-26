@@ -49,8 +49,14 @@ Slash commands in server
 
 ## Features & Commands
 
-`>wrd cohesion [you can use any word]`
+* `>wrd cohesion [you can use any word]`
 
 <img src="./assets/wrd_cohesion.jpg">
 
-`>react [1, 2, 3]` 
+* `>react [1, 2, 3]` 
+
+<img src="./assets/react_commands.png">
+
+* `>gif <title>` 
+
+<img src="./assets/writer.gif">
