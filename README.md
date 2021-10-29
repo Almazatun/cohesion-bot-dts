@@ -61,4 +61,4 @@ Slash commands in server
 
 <img src="./assets/writer.gif">
 
-* `>image <title>` 
+* `>image <title>`  
