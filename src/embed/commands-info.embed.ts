@@ -5,13 +5,15 @@ export function commandsEmbed(): MessageEmbed {
     .setColor('#d9095a')
     .setTitle('Commands')
     .setAuthor('Cohesion bot 🤖')
-    .addFields({ name: '>wrd', value: ' >wrd [[any word]] ' })
+    .addFields({ name: '>wrd', value: ' >wrd < title > ' })
     .addFields(
       { name: '>react',
         value: ' >react1 [[some react message]] ``` 👍 👎 ```\n '
           + '>react2 [[some react message]] ``` 🍎 🍊 🍇 ```\n'
           + '>react3 [[some react message]] ``` 🟢 🟡 🔴 ```\n' },
-    );
+    )
+    .addFields({ name: '>image', value: ' >image < title > ' })
+    .addFields({ name: '>gif', value: ' >gif < title > ' });
 
   return userInfoEmbed;
 }

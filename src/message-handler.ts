@@ -5,9 +5,9 @@ import { reactCommand } from './commands/react.command';
 import { isIncludeCommandSymbol } from './utils/check-command-symbol';
 import { getCommand } from './utils/get-command';
 import { wrdCommand } from './commands/wrd.command';
+import { gifCommand } from './commands/gif.command';
 import { cyrillicPattern } from './utils/cyrillic-pattetn';
 import { imageCommand } from './commands/image.command';
-import { gifCommand } from './commands/gif.command';
 
 export async function messageHandler(message: Message): Promise<void> {
   const userMessage = message.content;
