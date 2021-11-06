@@ -1,5 +1,17 @@
 # Cohesion-bot 🤖
 
+### Notes
+
+In order to run the application make the following steps:
+
+* Create an App in Discord
+  https://discord.com/developers/applications
+
+* Copy from your created application part confirm info:
+    * APPLICATION ID ---> CLIENT_ID
+    * APPLICATION TOKEN
+    * GUILD ID
+
 ### Installation
 
 ```bash
@@ -26,11 +38,11 @@ $ npm run dev
 
 ```bash
 # Build the image
-docker build -t cohesion-bot-dts .
+$ docker build -t cohesion-bot-dts .
 # Run the image
-docker run -d cohesion-bot-dts
+$ docker run -d cohesion-bot-dts
 # Logs the running docker container
-docker logs -f <CONTAINER ID>
+$ docker logs -f <CONTAINER ID>
 ```
 
 ## Deploying commands
