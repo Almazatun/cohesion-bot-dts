@@ -1,4 +1,5 @@
 import Scraper from 'images-scraper';
+import { getRandomInt } from '../utils/get-random-index';
 
 const google = new Scraper({
   puppeteer: {
@@ -6,10 +7,6 @@ const google = new Scraper({
     headless: true,
   },
 });
-
-function getRandomInt(max: number): number {
-  return Math.floor(Math.random() * max);
-}
 
 export async function imageCommand(searchTitle: string): Promise<any> {
   let result: string;
