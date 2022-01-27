@@ -9,8 +9,9 @@ In order to run the application make the following steps:
 
 * Copy from your created application part confirm info:
     * APPLICATION ID ---> CLIENT_ID
-    * APPLICATION TOKEN
-    * GUILD ID
+    * APPLICATION TOKEN ---> DISCORD_TOKEN
+    * GUILD_ID
+    * TENOR_APIKEY
 
 ### Installation
 
