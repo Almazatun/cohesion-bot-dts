@@ -7,20 +7,47 @@ interface Json {
 
 const lettersAndNumbers: Json = { ...lettersJSON, ...numbersJSON };
 
-export function wrdCommand(userTypeSymbols: string): string {
-  const result: string[] = [];
-  const userTypeSymbolList = userTypeSymbols.trim().toLowerCase().split('');
+function isLongLength(userTypeSymbolList: string[]) {
+  let result: boolean = false;
+
+  const len: number = userTypeSymbolList.length;
+
+  if (len > 35) {
+    result = true;
+  }
+
+  return result;
+}
+
+function getDiscordAlphabetNumSymbols(userTypeSymbolList: string[]): string {
+  const characters: string[] = [];
+
   const keyList = Object.keys({ ...lettersJSON, ...numbersJSON });
 
   for (const userTypeSymbol of userTypeSymbolList) {
     const isExistSymbol = keyList.includes(userTypeSymbol);
 
     if (isExistSymbol) {
-      result.push(lettersAndNumbers[userTypeSymbol]);
+      characters.push(lettersAndNumbers[userTypeSymbol]);
     } else {
-      result.push(' ❌ ');
+      characters.push(' ❌ ');
     }
   }
 
-  return result.join('');
+  return characters.join('');
+}
+
+export function wrdCommand(userTypeSymbols: string): string {
+  let result: string;
+  const userTypeCharacters = userTypeSymbols.trim().toLowerCase().split('');
+
+  if (!isLongLength(userTypeCharacters)) {
+    result = getDiscordAlphabetNumSymbols(userTypeCharacters);
+  } else {
+    const longWord = 'long-word';
+    const characterSymbols = getDiscordAlphabetNumSymbols(longWord.split(''));
+    result = `🤬 ${characterSymbols} 🤬`;
+  }
+
+  return result;
 }

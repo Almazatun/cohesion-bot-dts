@@ -23,7 +23,11 @@ export async function messageHandler(message: Message): Promise<void> {
       if (isIncludeCommandInChannel) {
         if (userTypeCommand === 'wrd') {
           const discordCodeLetters: string = wrdCommand(userTypeCommandKey);
-          message.channel.send(discordCodeLetters);
+          await Promise.all([
+            message.channel.send(discordCodeLetters),
+            message.channel.send(`🤖 WRD Title: ${userTypeCommandKey}\nUsername : ${username}`),
+            message.delete(),
+          ]);
         }
 
         if (userTypeCommand === 'gif') {
@@ -33,8 +37,11 @@ export async function messageHandler(message: Message): Promise<void> {
           if (!isContainRussLetters) {
             const url = await gifTenorCommand(title);
             if (url !== undefined) {
-              message.channel.send(url);
-              message.channel.send(`Tenor GIF: ${title}\nUsername: ${username}`);
+              await Promise.all([
+                message.channel.send(url),
+                message.channel.send(`🤖 Tenor GIF: ${title}\nUsername: ${username}`),
+                message.delete(),
+              ]);
             }
           }
         }

@@ -1,9 +1,6 @@
-import axios from 'axios';
 import { getRandomInt } from '../utils/get-random-index';
 
-const instance = axios.create({
-  baseURL: `https://g.tenor.com/v1/search`,
-});
+import { instance } from '../helpers/axios_instance';
 
 export async function gifTenorCommand(title: string): Promise<string> {
   let result: string;
