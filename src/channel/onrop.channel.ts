@@ -1,4 +1,4 @@
-import { createChannel } from '../create-channel';
+import { createChannel } from '../helpers/create-channel';
 
 require('dotenv').config();
 

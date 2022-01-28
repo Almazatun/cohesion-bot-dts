@@ -1,13 +1,15 @@
 import { Message } from 'discord.js';
 
-import { onropChannel } from './channel/onrop.channel';
-import { reactCommand } from './commands/react.command';
-import { isIncludeCommandSymbol } from './utils/check-command-symbol';
-import { getCommand } from './utils/get-command';
-import { wrdCommand } from './commands/wrd.command';
-import { cyrillicPattern } from './utils/cyrillic-pattetn';
-import { imageCommand } from './commands/image.command';
-import { gifTenorCommand } from './commands/gif-tenor.command';
+import { onropChannel } from '../channel/onrop.channel';
+
+import { reactCommand } from '../commands/react.command';
+import { wrdCommand } from '../commands/wrd.command';
+import { imageCommand } from '../commands/image.command';
+import { gifTenorCommand } from '../commands/gif-tenor.command';
+
+import { isIncludeCommandSymbol } from '../utils/check-command-symbol';
+import { getCommand } from '../utils/get-command';
+import { cyrillicPattern } from '../utils/cyrillic-pattetn';
 
 export async function messageHandler(message: Message): Promise<void> {
   const userMessage = message.content;

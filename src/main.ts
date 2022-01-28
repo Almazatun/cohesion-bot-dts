@@ -4,7 +4,7 @@ import { REST } from '@discordjs/rest';
 import { Routes } from 'discord-api-types/v9';
 
 import { readyDiscordBot } from './ready-discord-bot';
-import { messageHandler } from './message-handler';
+import { messageHandler } from './helpers/message-handler';
 import { meEmbed } from './embed/user-info.embed';
 import { serverEmbed } from './embed/server-info.embed';
 import { commandsEmbed } from './embed/commands-info.embed';
