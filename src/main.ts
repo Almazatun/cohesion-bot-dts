@@ -4,10 +4,15 @@ import { REST } from '@discordjs/rest';
 import { Routes } from 'discord-api-types/v9';
 
 import { readyDiscordBot } from './ready-discord-bot';
-import { messageHandler } from './helpers/message-handler';
+
 import { meEmbed } from './embed/user-info.embed';
 import { serverEmbed } from './embed/server-info.embed';
 import { commandsEmbed } from './embed/commands-info.embed';
+import { vcruEmbed } from './embed/vcru.embed';
+
+import { messageHandler } from './helpers/message-handler';
+import { vcruNews } from './helpers/vcru/vcru-news';
+import { errorLogger } from './helpers/logger/error.logger';
 
 require('dotenv').config();
 
@@ -35,6 +40,11 @@ const commands = [
     .addSubcommand(subcommand => subcommand
       .setName('commands')
       .setDescription('Info about bot command')),
+
+  new SlashCommandBuilder().setName('news').setDescription('VC.RU news')
+    .addSubcommand(subcommand => subcommand
+      .setName('vc')
+      .setDescription('top news')),
 ]
   .map(command => command.toJSON());
 
@@ -56,13 +66,30 @@ client.on('interactionCreate', async (interaction) => {
   if (commandName === 'info') {
     if (interaction.options.getSubcommand() === 'me') {
       interaction.channel.send({ embeds: [meEmbed(interaction)] })
-        .catch(console.error);
+        .catch((error) => {
+          errorLogger('INFO / ME', error);
+        });
     } else if (interaction.options.getSubcommand() === 'server') {
       interaction.channel.send({ embeds: [serverEmbed(interaction)] })
-        .catch(console.error);
+        .catch((error) => {
+          errorLogger('INFO / SERVER', error);
+        });
     } else if (interaction.options.getSubcommand() === 'commands') {
       interaction.channel.send({ embeds: [commandsEmbed()] })
-        .catch(console.error);
+        .catch((error) => {
+          errorLogger('INFO / COMMANDS', error);
+        });
+    }
+  }
+
+  if (commandName === 'news') {
+    if (interaction.channelId === process.env.VC_NEWS_CHANNEL_ID) {
+      const vcruNewsData = await vcruNews();
+      interaction.channel.send({
+        embeds: [vcruEmbed(vcruNewsData)],
+      }).catch((error) => {
+        errorLogger('NEWS / VC', error);
+      });
     }
   }
 });
