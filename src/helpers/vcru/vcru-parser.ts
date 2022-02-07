@@ -5,13 +5,13 @@ interface Content {
   link: string
 }
 
-interface VCRUParser {
+export interface VCRUData {
   time: string,
   newsContent: Content[]
 }
 
-export function vcruParser(htmlData: any):VCRUParser {
-  const result: VCRUParser = {
+export function vcruParser(htmlData: any):VCRUData {
+  const result: VCRUData = {
     time: '',
     newsContent: [],
   };
