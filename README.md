@@ -60,6 +60,10 @@ Slash commands in server
 
 <img src="./assets/info_commands.png">
 
+`/news vc`
+
+<img src="./assets/vc_news.png">
+
 ## Features & Commands
 
 * `>wrd cohesion [you can use any word]`
