@@ -6,6 +6,7 @@ import { reactCommand } from '../commands/react.command';
 import { wrdCommand } from '../commands/wrd.command';
 import { imageCommand } from '../commands/image.command';
 import { gifTenorCommand } from '../commands/gif-tenor.command';
+import { vcruNews } from '../commands/vcru-news';
 
 import { isIncludeCommandSymbol } from '../utils/check-command-symbol';
 import { getCommand } from '../utils/get-command';
@@ -20,6 +21,10 @@ export async function messageHandler(message: Message): Promise<void> {
   const userTypeCommandKey: string = getCommand(userMessage, 1);
 
   if (isIncludeCommandSymbol(userMessage)) {
+    if (userTypeCommand === 'news') {
+      await vcruNews();
+    }
+
     if (onropChannel.channelId === channelId) {
       const isIncludeCommandInChannel = onropChannel.aliases.includes(userTypeCommand);
       if (isIncludeCommandInChannel) {
