@@ -21,9 +21,7 @@ export function vcruParser(htmlData: any):VCRUData {
   result.time = $('div[class="news_widget__header"] > p').text();
 
   $('div[class="news_item l-flex l-fa-baseline lm-block l-mv-9 lm-mv-8"]').map((index, elm) => {
-    const vcruNewsTitle: string = $(elm).find('div a').text();
-    vcruNewsTitle.replace(/[\r\n]/g, '');
-
+    const vcruNewsTitle: string = $(elm).find('div a').text().replace(/[\r\n]/g, '');
     const vcruNewsLink: string = $(elm).find('div a').attr('href');
 
     const createContent: Content = {
