@@ -50,7 +50,7 @@ $ docker logs -f <CONTAINER ID>
 
 Slash commands in server
 
-<img src="./assets/deploy_commands.jpg">
+<img src="./assets/slash_commands.png">
 
 `/info server`
 
@@ -68,14 +68,22 @@ Slash commands in server
 
 * `>wrd cohesion [you can use any word]`
 
-<img src="./assets/wrd_cohesion.jpg">
+<img src="./assets/wrd.jpg">
 
-* `>react [1, 2, 3]` 
+* `>react1 <QUESTION>`
 
-<img src="./assets/react_commands.png">
+<img src="./assets/react_1.png">
 
-* `>gif <title>` 
+* `>react2 <QUESTION>`
+
+<img src="./assets/react_2.png">
+
+* `>react3 <QUESTION>`
+
+<img src="./assets/react_3.png">
+
+* `>gif <title>`
 
 <img src="./assets/writer.gif">
 
-* `>image <title>`  
+<img src="./assets/gif_type.png">
