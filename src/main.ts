@@ -1,5 +1,4 @@
 import { Client, Intents } from 'discord.js';
-import { SlashCommandBuilder } from '@discordjs/builders';
 import { REST } from '@discordjs/rest';
 import { Routes } from 'discord-api-types/v9';
 
@@ -9,6 +8,10 @@ import { meEmbed } from './embed/user-info.embed';
 import { serverEmbed } from './embed/server-info.embed';
 import { commandsEmbed } from './embed/commands-info.embed';
 import { vcruEmbed } from './embed/vcru.embed';
+
+import { slashCommands } from './slash-cmd-builders';
+
+import { SlashCommand, SlashSubCommand } from './common/enums/commands.enum';
 
 import { messageHandler } from './helpers/message-handler';
 import { vcruNews } from './helpers/vcru/vcru-news';
@@ -27,32 +30,13 @@ const client: Client = new Client({
   ],
 });
 
-const commands = [
-  new SlashCommandBuilder()
-    .setName('info')
-    .setDescription('Get info about a user or a server!')
-    .addSubcommand(subcommand => subcommand
-      .setName('me')
-      .setDescription('Info about a user'))
-    .addSubcommand(subcommand => subcommand
-      .setName('server')
-      .setDescription('Info about the server'))
-    .addSubcommand(subcommand => subcommand
-      .setName('commands')
-      .setDescription('Info about bot command')),
-
-  new SlashCommandBuilder().setName('news').setDescription('VC.RU news')
-    .addSubcommand(subcommand => subcommand
-      .setName('vc')
-      .setDescription('top news')),
-]
-  .map(command => command.toJSON());
-
 const rest = new REST({ version: '9' }).setToken(process.env.DISCORD_TOKEN);
 
-rest.put(Routes.applicationGuildCommands(process.env.CLIENT_ID, process.env.GUILD_ID), { body: commands })
+rest.put(Routes.applicationGuildCommands(process.env.CLIENT_ID, process.env.GUILD_ID), { body: slashCommands })
   .then(() => console.log('Successfully registered application commands.'))
-  .catch(console.error);
+  .catch((error) => {
+    errorLogger('REGISTRATION SLASH COMMANDS', error);
+  });
 
 client.on('ready', readyDiscordBot);
 
@@ -63,18 +47,18 @@ client.on('interactionCreate', async (interaction) => {
 
   const { commandName } = interaction;
 
-  if (commandName === 'info') {
-    if (interaction.options.getSubcommand() === 'me') {
+  if (commandName === SlashCommand.INFO) {
+    if (interaction.options.getSubcommand() === SlashSubCommand.ME) {
       interaction.channel.send({ embeds: [meEmbed(interaction)] })
         .catch((error) => {
           errorLogger('INFO / ME', error);
         });
-    } else if (interaction.options.getSubcommand() === 'server') {
+    } else if (interaction.options.getSubcommand() === SlashSubCommand.SERVER) {
       interaction.channel.send({ embeds: [serverEmbed(interaction)] })
         .catch((error) => {
           errorLogger('INFO / SERVER', error);
         });
-    } else if (interaction.options.getSubcommand() === 'commands') {
+    } else if (interaction.options.getSubcommand() === SlashSubCommand.COMMANDS) {
       interaction.channel.send({ embeds: [commandsEmbed()] })
         .catch((error) => {
           errorLogger('INFO / COMMANDS', error);
@@ -82,7 +66,7 @@ client.on('interactionCreate', async (interaction) => {
     }
   }
 
-  if (commandName === 'news') {
+  if (commandName === SlashCommand.NEWS) {
     if (interaction.channelId === process.env.VC_NEWS_CHANNEL_ID) {
       const vcruNewsData = await vcruNews();
       interaction.channel.send({

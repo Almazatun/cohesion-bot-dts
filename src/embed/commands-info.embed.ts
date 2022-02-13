@@ -12,7 +12,6 @@ export function commandsEmbed(): MessageEmbed {
           + '>react2 [[some react message]] ``` 🍎 🍊 🍇 ```\n'
           + '>react3 [[some react message]] ``` 🟢 🟡 🔴 ```\n' },
     )
-    .addFields({ name: '>image', value: ' >image < title > ' })
     .addFields({ name: '>gif', value: ' >gif < title > ' });
 
   return userInfoEmbed;

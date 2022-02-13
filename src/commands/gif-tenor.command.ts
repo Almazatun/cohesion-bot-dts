@@ -2,6 +2,8 @@ import { getRandomInt } from '../utils/get-random-index';
 
 import { instance } from '../helpers/axios_instance';
 
+import { errorLogger } from '../helpers/logger/error.logger';
+
 export async function gifTenorCommand(title: string): Promise<string> {
   let result: string;
   try {
@@ -13,7 +15,7 @@ export async function gifTenorCommand(title: string): Promise<string> {
       result = gifList[index].url;
     }
   } catch (error) {
-    console.log(error);
+    errorLogger('gifTenorCommand', error);
   }
 
   return result;
