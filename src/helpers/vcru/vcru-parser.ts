@@ -6,21 +6,26 @@ interface Content {
 }
 
 export interface VCRUData {
-  time: string,
+  date: string,
   newsContent: Content[]
 }
 
 export function vcruParser(htmlData: any):VCRUData {
   const result: VCRUData = {
-    time: '',
+    date: '',
     newsContent: [],
   };
 
+  const now = new Date();
+  const month = now.toLocaleString('default', { month: 'long' });
+  const date = now.getUTCDate();
+
+  result.date = `${month} ${date}`;
+
   const $ = cheerio.load(htmlData);
 
-  result.time = $('div[class="news_widget__header"] > p').text();
-
-  $('div[class="news_item l-flex l-fa-baseline lm-block l-mv-9 lm-mv-8"]').map((index, elm) => {
+  // eslint-disable-next-line array-callback-return
+  $('div[class="news_item l-flex l-fa-baseline lm-block"]').map((index, elm) => {
     const vcruNewsTitle: string = $(elm).find('div a').text().replace(/[\r\n]/g, '');
     const vcruNewsLink: string = $(elm).find('div a').attr('href');
 

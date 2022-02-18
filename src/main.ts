@@ -1,33 +1,22 @@
-import { Client, Intents } from 'discord.js';
+import { Client } from 'discord.js';
 import { REST } from '@discordjs/rest';
 import { Routes } from 'discord-api-types/v9';
 
 import { readyDiscordBot } from './ready-discord-bot';
 
-import { meEmbed } from './embed/user-info.embed';
-import { serverEmbed } from './embed/server-info.embed';
-import { commandsEmbed } from './embed/commands-info.embed';
-import { vcruEmbed } from './embed/vcru.embed';
-
 import { slashCommands } from './slash-cmd-builders';
-
-import { SlashCommand, SlashSubCommand } from './common/enums/commands.enum';
+import { intentsFlags } from './common/intentFlags';
 
 import { messageHandler } from './helpers/message-handler';
-import { vcruNews } from './helpers/vcru/vcru-news';
 import { errorLogger } from './helpers/logger/error.logger';
+import { slashCommandHandler } from './helpers/slash-command-handler';
 
 require('dotenv').config();
 
 const TOKEN = process.env.DISCORD_TOKEN;
 
 const client: Client = new Client({
-  intents: [
-    Intents.FLAGS.GUILDS,
-    Intents.FLAGS.GUILD_MESSAGES,
-    Intents.FLAGS.GUILD_MESSAGE_REACTIONS,
-    Intents.FLAGS.DIRECT_MESSAGES,
-  ],
+  intents: intentsFlags,
 });
 
 const rest = new REST({ version: '9' }).setToken(process.env.DISCORD_TOKEN);
@@ -42,40 +31,6 @@ client.on('ready', readyDiscordBot);
 
 client.on('messageCreate', messageHandler);
 
-client.on('interactionCreate', async (interaction) => {
-  if (!interaction.isCommand()) return;
-
-  const { commandName } = interaction;
-
-  if (commandName === SlashCommand.INFO) {
-    if (interaction.options.getSubcommand() === SlashSubCommand.ME) {
-      interaction.channel.send({ embeds: [meEmbed(interaction)] })
-        .catch((error) => {
-          errorLogger('INFO / ME', error);
-        });
-    } else if (interaction.options.getSubcommand() === SlashSubCommand.SERVER) {
-      interaction.channel.send({ embeds: [serverEmbed(interaction)] })
-        .catch((error) => {
-          errorLogger('INFO / SERVER', error);
-        });
-    } else if (interaction.options.getSubcommand() === SlashSubCommand.COMMANDS) {
-      interaction.channel.send({ embeds: [commandsEmbed()] })
-        .catch((error) => {
-          errorLogger('INFO / COMMANDS', error);
-        });
-    }
-  }
-
-  if (commandName === SlashCommand.NEWS) {
-    if (interaction.channelId === process.env.VC_NEWS_CHANNEL_ID) {
-      const vcruNewsData = await vcruNews();
-      interaction.channel.send({
-        embeds: [vcruEmbed(vcruNewsData)],
-      }).catch((error) => {
-        errorLogger('NEWS / VC', error);
-      });
-    }
-  }
-});
+client.on('interactionCreate', slashCommandHandler);
 
 client.login(TOKEN);

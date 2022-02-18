@@ -1,10 +1,8 @@
 import { Message } from 'discord.js';
 
-import { onropChannel } from '../channel/onrop.channel';
+import { onropChannel } from '../channel';
 
-import { reactCommand } from '../commands/react.command';
-import { wrdCommand } from '../commands/wrd.command';
-import { gifTenorCommand } from '../commands/gif-tenor.command';
+import { gifTenorCommand, reactCommand, wrdCommand } from '../commands';
 
 import { isIncludeCommandSymbol } from '../utils/check-command-symbol';
 import { getCommand } from '../utils/get-command';
