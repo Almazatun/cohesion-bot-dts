@@ -2,14 +2,14 @@ import { Message } from 'discord.js';
 
 export interface ReactCommand {
   _name: string
-  react1: (message: Message) => Promise<void>
-  react2: (message: Message) => Promise<void>
-  react3: (message: Message) => Promise<void>
+  thumbsUpAndDown: (message: Message) => Promise<void>
+  fruits: (message: Message) => Promise<void>
+  colors: (message: Message) => Promise<void>
 }
 
-function react1() {
+function thumbsUpAndDown() {
   return {
-    react1: async (message: Message): Promise<void> => {
+    thumbsUpAndDown: async (message: Message): Promise<void> => {
       await Promise.all([
         message.react('👍'),
         message.react('👎'),
@@ -18,9 +18,9 @@ function react1() {
   };
 }
 
-function react2() {
+function fruits() {
   return {
-    react2: async (message: Message): Promise<void> => {
+    fruits: async (message: Message): Promise<void> => {
       await Promise.all([
         message.react('🍎'),
         message.react('🍊'),
@@ -30,9 +30,9 @@ function react2() {
   };
 }
 
-function react3() {
+function colors() {
   return {
-    react3: async (message: Message): Promise<void> => {
+    colors: async (message: Message): Promise<void> => {
       await Promise.all([
         message.react('🟢'),
         message.react('🟡'),
@@ -42,9 +42,13 @@ function react3() {
   };
 }
 
-const methods = { ...react1(), ...react2(), ...react3() };
+const reacts = {
+  ...thumbsUpAndDown(),
+  ...fruits(),
+  ...colors(),
+};
 
 export const reactCommand: ReactCommand = {
   _name: 'react',
-  ...methods,
+  ...reacts,
 };

@@ -1,28 +1,28 @@
-import { getDiscordAlphabetNumSymbols } from '../helpers/get-discord-alphabet-num-symbols';
+import { generateStrToDiscordEmojis } from '../helpers/generate-str-to-discord-emojis';
 
-function isLongWordLength(userTypeSymbolList: string[]) {
+function isLongStringLength(str: string) {
   let result: boolean = false;
 
-  const len: number = userTypeSymbolList.length;
-
-  if (len > 35) {
+  if (str.length > 35) {
     result = true;
   }
 
   return result;
 }
 
-export function wrdCommand(userTypeTitle: string): string {
-  let result: string;
-  const userTypeLetters: string[] = userTypeTitle.trim().toLowerCase().split('');
+function splitString(str: string): string[] {
+  return str.trim().toLowerCase().split('');
+}
 
-  if (!isLongWordLength(userTypeLetters)) {
-    result = getDiscordAlphabetNumSymbols(userTypeLetters);
-  } else {
-    const longWord = 'long-word';
-    const longWordList = longWord.split('');
-    const discordAlphabetNumSymbols = getDiscordAlphabetNumSymbols(longWordList);
-    result = `🤬 ${discordAlphabetNumSymbols} 🤬`;
+export function wrdCommand(str: string): string {
+  let result: string;
+
+  if (!isLongStringLength(str)) {
+    result = generateStrToDiscordEmojis(splitString(str));
+  }
+
+  if (isLongStringLength(str)) {
+    result = `🤬 ${generateStrToDiscordEmojis(splitString('long-word'))} 🤬`;
   }
 
   return result;

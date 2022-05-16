@@ -11,8 +11,7 @@ export async function gifTenorCommand(title: string): Promise<string> {
     const gifList = response.data.results;
 
     if (gifList.length >= 1) {
-      const index = getRandomInt(gifList.length);
-      result = gifList[index].url;
+      result = gifList[getRandomInt(gifList.length)].url;
     }
   } catch (error) {
     errorLogger('gifTenorCommand', error);

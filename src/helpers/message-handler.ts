@@ -2,13 +2,14 @@ import { Message } from 'discord.js';
 
 import { onropChannel } from '../channel';
 
-import { gifTenorCommand, reactCommand, wrdCommand } from '../commands';
+import { gifTenorCommand, wrdCommand } from '../commands';
 
 import { isIncludeCommandSymbol } from '../utils/check-command-symbol';
 import { getCommand } from '../utils/get-command';
 import { cyrillicPattern } from '../utils/cyrillic-pattetn';
 
 import { Command } from '../common/enums/commands.enum';
+import { reactCommandHandler } from './react-command-handler';
 
 export async function messageHandler(message: Message): Promise<void> {
   const userMessage = message.content;
@@ -49,16 +50,6 @@ export async function messageHandler(message: Message): Promise<void> {
       }
     }
 
-    if (userTypeCommand === Command.REACT_1) {
-      await reactCommand.react1(message);
-    }
-
-    if (userTypeCommand === Command.REACT_2) {
-      await reactCommand.react2(message);
-    }
-
-    if (userTypeCommand === Command.REACT_3) {
-      await reactCommand.react3(message);
-    }
+    await reactCommandHandler(userTypeCommand, message);
   }
 }

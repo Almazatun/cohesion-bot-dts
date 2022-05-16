@@ -1,3 +1,3 @@
 export function errorLogger(command: string, errorMessage: string) {
-  console.log(`------------------------->${errorMessage}`);
+  console.log(`Command:${command} \n------------------------->${errorMessage}`);
 }
